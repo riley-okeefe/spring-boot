@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class ConsumingRestApplication {
 
-	private static final Logger log = Logger.getLogger(ConsumingRestApplication.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(ConsumingRestApplication.class.getName());
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConsumingRestApplication.class, args);
@@ -27,10 +27,10 @@ public class ConsumingRestApplication {
 	}
 
 	@Bean
-	@Profile("test!")
-	public CommandLineRunner run(RestTemplate restTemplate) throws exception {
+	@Profile("!test")
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Quote quote = restTemplate.getForObject("http://localhost:8080/api/random", Quote.class);
+			Quote quote = restTemplate.getForObject("http://localhost:8080/api/1", Quote.class);
 			log.info(quote.toString());
 		};
 	}
